@@ -8,6 +8,7 @@
  * If you are using Composer, you can skip this step.
  */
 require 'Slim/Slim.php';
+require_once 'classes/LanguageSelector.php';
 
 \Slim\Slim::registerAutoloader();
 
@@ -31,6 +32,25 @@ $app = new \Slim\Slim();
  */
 
 // GET route
+$app->get('/api', function () {
+	# return a list of available lang
+	$languageSelector = new LanguageSelector();
+	$languages =  $languageSelector->getAllLang();
+	echo json_encode($languages);
+});
+
+$app->get('/api/:lang', function ($lang) use ($app) {
+	# return all POIs 
+	# preferred in $lang
+	# fallback in english
+	$languageSelector = new LanguageSelector();
+	$lang = $languageSelector->getLang($lang);
+
+	# TODO get POIS
+	echo $lang;
+
+});
+
 $app->get(
     '/',
     function () {
