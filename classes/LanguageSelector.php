@@ -11,10 +11,10 @@ class LanguageSelector {
 	}
 
 	public function getLang($input) {
-		if (in_array($input, $this->languages)) {
+		if (in_array($input, $this->languages)  && strcmp($this->languages[0], $input) !== 0) {
 			return $input;
 		} else {
-			return $this->languages[0];
+			return '';
 		}
 	}
 
