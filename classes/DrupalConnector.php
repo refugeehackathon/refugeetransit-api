@@ -1,11 +1,16 @@
 <?php
-require_once('./httpful.phar');
-require_once('./GeoJsonBuilder.php');
+require_once('httpful.phar');
+require_once('GeoJsonBuilder.php');
 
 class DrupalConnector
 {
     private $baseUrl = "https://migrationmulti.tem.li";
     private $apiUrl = "/rest";
+	private $lang = "";
+
+	function __construct($lang) {
+      $this->lang = '/' . $lang;
+   }
 
 
     //get Cities as GeoJson
@@ -32,7 +37,7 @@ class DrupalConnector
 
     public function callApi($requestUrl)
     {
-        $requestUrl = $this->baseUrl . $this->apiUrl . $requestUrl;
+        $requestUrl = $this->baseUrl . $this->lang . $this->apiUrl . $requestUrl;
         $response = \Httpful\Request::get($requestUrl)->expectsJson()->send();
         $transform =  json_encode($response->body);
         $content = json_decode($transform, true);

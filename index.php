@@ -9,6 +9,7 @@
  */
 require 'Slim/Slim.php';
 require_once 'classes/LanguageSelector.php';
+require_once 'classes/DrupalConnector.php';
 
 \Slim\Slim::registerAutoloader();
 
@@ -46,8 +47,8 @@ $app->get('/api/:lang', function ($lang) use ($app) {
 	$languageSelector = new LanguageSelector();
 	$lang = $languageSelector->getLang($lang);
 
-	# TODO get POIS
-	echo $lang;
+	$connector = new DrupalConnector($lang);
+	echo $connector->getPois();
 
 });
 
