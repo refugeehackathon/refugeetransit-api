@@ -16,7 +16,16 @@ class DrupalConnector
     //get Cities as GeoJson
     public function getCities()
     {
-    
+        $response = $this->callApi("/list/city");
+        $nodes = $response["nodes"];
+        $GeoJsonBuilder = new GeoJsonBuilder();
+
+        for($i = 0; $i < count($nodes); $i++)
+        {
+            $GeoJsonBuilder->addPoint($nodes[$i]["type"], $nodes[$i]["latitude"], $nodes[$i]["longitude"], array("info", "type"), array($nodes[$i]["info"], $nodes[$i]["type"]));
+        }
+
+        return $GeoJsonBuilder->result();
     }
 
     //get POIs as GeoJson

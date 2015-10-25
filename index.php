@@ -40,7 +40,9 @@ $app->get('/api', function () {
 	echo json_encode($languages);
 });
 
-$app->get('/api/:lang', function ($lang) use ($app) {
+
+
+$app->get('/api/:lang/poi', function ($lang) use ($app) {
 	# return all POIs 
 	# preferred in $lang
 	# fallback in english
@@ -51,6 +53,22 @@ $app->get('/api/:lang', function ($lang) use ($app) {
 	echo $connector->getPois();
 
 });
+
+
+
+$app->get('/api/:lang/city', function ($lang) use ($app) {
+    # return all POIs 
+    # preferred in $lang
+    # fallback in english
+    $languageSelector = new LanguageSelector();
+    $lang = $languageSelector->getLang($lang);
+
+    $connector = new DrupalConnector($lang);
+    echo $connector->getCities();
+
+});
+
+
 
 $app->get(
     '/',
