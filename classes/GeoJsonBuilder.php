@@ -3,10 +3,13 @@
 class GeoJsonBuilder
 {
 	public $GeoJson = null;
+	public $FeatureCollection = null;
 
 	function __construct()
 	{
 		$this->GeoJson = array();
+		$this->FeatureCollection = array();
+
 	}
 
 	//adds a point to GeoJson, returns a bool value
@@ -17,11 +20,11 @@ class GeoJsonBuilder
 		$properties = new stdClass();
 
 		//create Point type
-		$point["type"] = $type;
+		$point["type"] = "Feature";
 
 		//create Point geometry
 		$geometry["type"] = "Point";
-		$geometry["coordinates"] = array($coordinate1, $coordinate2);
+		$geometry["coordinates"] = array((float)$coordinate1, (float)$coordinate2);
 		$point["geometry"] = $geometry;
 
 		//create properties
@@ -37,13 +40,19 @@ class GeoJsonBuilder
 			return false;
 		}
 		$point["properties"] = $properties;
-		array_push($this->GeoJson, $point);
+		array_push($this->FeatureCollection, $point);
 
 
 		return true;
-
 	}
 
+	public function result()
+	{
+		$result = array();
+		$result["type"] = "FeatureCollection";
+		$result["features"] = $this->FeatureCollection;
+		return json_encode($result);
+	}
 }
 
 ?>
