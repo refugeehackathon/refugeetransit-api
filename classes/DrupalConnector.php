@@ -19,7 +19,7 @@ class DrupalConnector
         $response = $this->callApi("/list/city");
         $nodes = $response["nodes"];
 
-		return json_encode($nodes);
+	return json_encode($nodes);
     }
 
     //get POIs as GeoJson
