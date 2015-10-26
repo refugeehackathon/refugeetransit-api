@@ -42,7 +42,7 @@ $app->get('/api', function () {
 
 
 
-$app->get('/api/:lang/poi', function ($lang) use ($app) {
+$app->get('/api/:lang/pois', function ($lang) use ($app) {
 	# return all POIs 
 	# preferred in $lang
 	# fallback in english
@@ -56,7 +56,7 @@ $app->get('/api/:lang/poi', function ($lang) use ($app) {
 
 
 
-$app->get('/api/:lang/city', function ($lang) use ($app) {
+$app->get('/api/:lang/cities', function ($lang) use ($app) {
     # return all POIs 
     # preferred in $lang
     # fallback in english
