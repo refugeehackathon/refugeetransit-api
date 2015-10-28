@@ -33,7 +33,8 @@ $app = new \Slim\Slim();
  */
 
 // GET route
-$app->get('/api', function () {
+$app->get('/api', function () use ($app){
+    $app->contentType('application/json');
 	# return a list of available lang
 	$languageSelector = new LanguageSelector();
 	$languages =  $languageSelector->getAllLang();
@@ -43,6 +44,7 @@ $app->get('/api', function () {
 
 
 $app->get('/api/:lang/pois', function ($lang) use ($app) {
+    $app->contentType('application/json');
 	# return all POIs 
 	# preferred in $lang
 	# fallback in english
@@ -57,6 +59,7 @@ $app->get('/api/:lang/pois', function ($lang) use ($app) {
 
 
 $app->get('/api/:lang/cities', function ($lang) use ($app) {
+    $app->contentType('application/json');
     # return all POIs 
     # preferred in $lang
     # fallback in english
